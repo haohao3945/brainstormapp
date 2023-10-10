@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brainstorm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+	  width:70%;
+      height: 100vh;
+      margin: 0;
+	  margin:auto;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+
+    .big-input input {
+      width: 95%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .small-input {
+      display: flex;
+      align-items: center;
+    }
+
+    .small-input input {
+      flex: 1;
+      padding: 10px;
+      margin-right: 10px;
+    }
+
+    .add-button,
+    .delete-button {
+      background-color: #007bff;
+      width: 100px;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .delete-button {
+      background-color: red;
+    }
+
+    .add-button:hover,
+    .delete-button:hover {
+      background-color: #0056b3;
+    }
+
+    .add-container-button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .add-container-button:hover {
+      background-color: #1f8d3f;
+    }
+
+    .hide {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div style="text-align: center;align-items: center; justify-content: center;">
+      <h1>BRAINSTORMER</h1>
+      <button class="add-container-button">Add Topic To Brainstorm</button>
+
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const container = document.querySelector(".container");
+      const addContainerButton = document.querySelector(".add-container-button");
+
+      addContainerButton.addEventListener("click", function () {
+        const newContainer = document.createElement("div");
+        newContainer.classList.add("container");
+
+        const bigInput = document.createElement("div");
+        bigInput.classList.add("big-input");
+        bigInput.innerHTML = `
+          <input type="text" placeholder="Key in main title that needs to brainstorm">
+        `;
+
+        const smallInputs = document.createElement("div");
+        smallInputs.classList.add("small-inputs");
+
+        const smallInput = document.createElement("div");
+        smallInput.classList.add("small-input");
+        smallInput.innerHTML = `
+          <input type="text" placeholder="Key in brainstorm content">
+          <button class="add-button">Add</button>
+        `;
+
+        smallInputs.appendChild(smallInput);
+
+        newContainer.appendChild(bigInput);
+        newContainer.appendChild(smallInputs);
+
+        container.appendChild(newContainer);
+
+        const addButton = smallInput.querySelector(".add-button");
+
+        addButton.addEventListener("click", function () {
+          const newInput = document.createElement("div");
+          newInput.classList.add("small-input");
+          newInput.innerHTML = `
+            <input type="text" placeholder="Key in brainstorm content">
+            <button class="delete-button">Delete</button>
+          `;
+
+          newInput.querySelector(".delete-button").addEventListener("click", function () {
+            smallInputs.removeChild(newInput);
+          });
+
+          smallInputs.appendChild(newInput);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
